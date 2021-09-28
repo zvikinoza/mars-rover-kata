@@ -1,4 +1,6 @@
 """
+Kata Description:
+
 You are given the initial starting point (x,y) of a rover and the direction (N,S,E,W) it is facing.
 
 The rover receives a character array of commands.
@@ -17,6 +19,8 @@ If a given sequence of commands encounters an obstacle,
 the rover moves up to the last possible point,
 aborts the sequence and reports the obstacle.
 """
+
+
 from src.marsrover.coordinate import Coordinate
 from src.marsrover.direction import Direction
 from src.marsrover.grid import Grid
@@ -27,17 +31,17 @@ class Rover:
         self._direction = Direction('N')
         self._coordinate = Coordinate(0, 0, grid)
 
-    def execute(self, command: str) -> str:
-        for c in command:
-            if c == 'L':
+    def execute(self, commands: str) -> str:
+        for cmd in commands:
+            if cmd == 'L':
                 self._direction.rotate_left()
-            elif c == 'R':
+            elif cmd == 'R':
                 self._direction.rotate_right()
-            elif c == 'F':
+            elif cmd == 'F':
                 self._coordinate.move_forward(self._direction)
-            elif c == 'B':
+            elif cmd == 'B':
                 self._coordinate.move_backward(self._direction)
             else:
-                raise Exception('Undefined command')
+                raise Exception('Undefined Command')
 
         return f'{self._coordinate}:{self._direction}'

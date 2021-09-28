@@ -3,12 +3,12 @@ from src.marsrover.grid import Grid
 
 
 class Coordinate:
-    def __init__(self, x: int, y: int, grid: Grid):
+    def __init__(self, x: int, y: int, grid: Grid) -> None:
         self._x = x
         self._y = y
         self._grid = grid
 
-    def move_forward(self, direction: Direction):
+    def move_forward(self, direction: Direction) -> None:
         if direction == 'N':
             self._y += 1
         elif direction == 'W':
@@ -20,7 +20,7 @@ class Coordinate:
 
         self.__handle_wraparound()
 
-    def move_backward(self, direction: Direction):
+    def move_backward(self, direction: Direction) -> None:
         if direction == 'N':
             self._y -= 1
         elif direction == 'W':
@@ -32,15 +32,17 @@ class Coordinate:
 
         self.__handle_wraparound()
 
-    def __handle_wraparound(self):
-        if self._x < 0:
+    def __handle_wraparound(self) -> None:
+        if self._x < 0:  # wrap left border of grid
             self._x = self._grid.max_width() - 1
-        if self._x >= self._grid.max_width():
+        elif self._x >= self._grid.max_width():  # wrap right border of grid
             self._x = 0
-        if self._y < 0:
+
+        if self._y < 0:  # wrap lower border of grid
             self._y = self._grid.max_height() - 1
-        elif self._y >= self._grid.max_height():
+
+        elif self._y >= self._grid.max_height():  # wrap top border of grid
             self._y = 0
 
-    def __str__(self):
+    def __str__(self) -> str:
         return f'{self._x}:{self._y}'
